@@ -1,11 +1,25 @@
 // Local content for the prototype.
 // Later, swap these for Supabase queries (see src/lib/supabase.js).
 
+// Night
+// Performing Arts
+// People, festivals, culture
+// Food
+// Walking About
+// Crafts & Collecting
+// Nature
+// History
+// Family
+
 export const TYPES = [
-  { key: 'night', name: 'The Night Owl', tag: 'Your best stories start after midnight.', traits: 'Live music / Clubs / Late nights', color: '#3DD6C0' },
-  { key: 'ritual', name: 'The Ritualist', tag: 'You travel for the moments a whole town stops for.', traits: 'Festivals / Craft / Heritage', color: '#FFB547' },
-  { key: 'wander', name: 'The Wanderer', tag: 'You would rather get lost with a snack than follow a map.', traits: 'Markets / Street food / Slow days', color: '#FF6B4A' },
-  { key: 'sun', name: 'The Sun Chaser', tag: 'Rhythm, heat and a dance floor with no walls.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' }
+  { key: 'night', name: 'The Nocturnal Traveller', tag: 'Even abroad, you wouldn\'t dream of getting up before 5pm.', traits: 'Live music / Clubs / Late nights', color: '#3DD6C0' },
+  { key: 'performing', name: 'The Patron', tag: 'Theatre, dance, music; that\'s what travellings all about.', traits: 'Festivals / Craft / Heritage', color: '#FFB547' },
+  { key: 'culture', name: 'The People-Person', tag: 'What\'s the point of going abroad if not to engage with local culture?', traits: 'Markets / Street food / Slow days', color: '#FF6B4A' },
+  { key: 'food', name: 'The Food-Lover', tag: 'No matter where you go, the best part of any holiday is hitting up the local restaurants.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' },
+  { key: 'walking', name: 'The Walker', tag: 'Sometimes, the best thing on holiday is just to stretch your legs and explore.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' },
+  { key: 'crafts', name: 'The Crafter-Collector', tag: 'Souvenirs and local craft techniques are the main thing catching your eye when you travel.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' },
+  { key: 'nature', name: 'The Nature-Lover', tag: 'For you, the best way to unwind is a local nature reserve or walk on a rock beach.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' },
+  { key: 'history', name: 'The Historian', tag: 'Even on holiday, you seek out new knowledge and information.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' }
 ];
 
 export const LINEUP = [
@@ -22,11 +36,11 @@ export const LINEUP = [
 
 // Each option carries the traveller type it votes for.
 export const QUESTIONS = [
-  { q: "It's 9pm in a city you've never been to. Where are we?", options: [
-    ['night', 'Down a staircase to a club with no sign'],
-    ['ritual', 'Following a procession that seems to know where it is going'],
-    ['wander', 'Third stall deep at a night market'],
-    ['sun', 'On a rooftop, watching the sky change colour']
+  { q: "It's 9pm in a city you've never been to. Where are you heading?", options: [
+    [['walking', 'nature'], 'To bed to rest. You want to be out bright and early tomorrow.'],
+    [['night', 'culture', 'performing'], 'Out! I\'d rather head out during the night to explore.'],
+    [['crafts'], 'The night market! All the best stuff is there.'],
+    [['family'], 'On a rooftop, watching the sky change colour']
   ]},
   { q: 'Pick the soundtrack for the whole trip.', options: [
     ['night', 'A DJ set that runs until sunrise'],
