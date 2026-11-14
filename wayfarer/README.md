@@ -25,6 +25,7 @@ npm run preview   # serve the built site locally
 
 - `index.html` is the landing page.
 - `auth.html` is sign up and sign in (Supabase email and password).
+- `group.html` is the group trip: create or join with a 6-character code, everyone takes the quiz, and the best-fit destinations are shown. Run `supabase/schema.sql` first.
 - `quiz.html` is the six-question quiz. It sends you to `results.html?type=<type>`.
 - `results.html` shows the traveller type and three destinations. Try `results.html?type=night`, `ritual`, `wander` or `sun`.
 

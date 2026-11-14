@@ -1,14 +1,23 @@
 import './styles.css';
 import { QUESTIONS, TYPE_ORDER } from './data.js';
 import { esc } from './lib/escape.js';
+import { addMember, normaliseCode, getName } from './lib/groups.js';
 
 const root = document.getElementById('quiz-root');
 const LETTERS = ['A', 'B', 'C', 'D'];
 const answers = [];
 
-function winningType() {
+// quiz.html?group=ABC123 saves the result to that group instead of showing a solo result.
+const groupCode = normaliseCode(new URLSearchParams(window.location.search).get('group'));
+
+function tally() {
   const counts = Object.fromEntries(TYPE_ORDER.map((k) => [k, 0]));
   answers.forEach((a) => { counts[a] += 1; });
+  return counts;
+}
+
+function winningType() {
+  const counts = tally();
   let best = TYPE_ORDER[0];
   TYPE_ORDER.forEach((k) => { if (counts[k] > counts[best]) best = k; });
   return best;
@@ -17,10 +26,23 @@ function winningType() {
 function pick(tag) {
   answers.push(tag);
   if (answers.length >= QUESTIONS.length) {
+    if (groupCode) return finishForGroup();
     window.location.href = `/results.html?type=${winningType()}`;
     return;
   }
   render();
+}
+
+async function finishForGroup() {
+  root.innerHTML = '<p class="lede" role="status">Saving your answers…</p>';
+  const name = getName() || 'Traveller';
+  const { error } = await addMember(groupCode, name, tally());
+  if (error) {
+    root.innerHTML = `<div class="auth-card"><p class="auth-msg is-error" role="alert">${esc(error.message)}</p>
+      <a class="btn btn-primary" href="/group.html?code=${groupCode}">Back to the group</a></div>`;
+    return;
+  }
+  window.location.href = `/group.html?code=${groupCode}`;
 }
 
 function goBack() {
