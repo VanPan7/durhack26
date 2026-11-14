@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wayfarer</title>
+  <meta name="description" content="Take a six-question personality quiz and get matched to travel destinations with the festivals, music and culture to suit you.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap">
+</head>
+<body>
+
+  <header class="wrap nav">
+    <a href="/" class="brand">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="none" stroke="#FFB547" stroke-width="2"/><circle cx="15" cy="15" r="5.5" fill="#FFB547"/></svg>
+      <span>Wayfarer</span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#types">Traveller types</a>
+      <a href="#lineup">The lineup</a>
+      <a href="/quiz.html" class="btn btn-primary btn-sm">Take the quiz</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="wrap hero">
+      <svg class="rings" viewBox="0 0 600 600" aria-hidden="true">
+        <g fill="none" stroke="#25405E" stroke-width="2"><circle cx="300" cy="300" r="120"/><circle cx="300" cy="300" r="180"/><circle cx="300" cy="300" r="240"/><circle cx="300" cy="300" r="296"/></g>
+      </svg>
+      <div class="hero-copy">
+        <p class="eyebrow">Six questions / three destinations / one ticket</p>
+        <h1 class="display h-hero">Find the place that <span style="color:var(--sun)">sounds</span> like you.</h1>
+        <p class="lede">Tell us how you like your nights, your mornings and your souvenirs. We match you to a traveller type, then to three places with the festivals, music and culture to suit it.</p>
+        <div class="cta-row">
+          <a href="/quiz.html" class="btn btn-primary">Take the quiz</a>
+          <a href="#how" class="btn btn-ghost">See how it works</a>
+        </div>
+        <p class="mono-note">About two minutes. No account needed.</p>
+      </div>
+
+      <div class="ticket-wrap">
+        <div class="ticket" style="--ticket:var(--sun);--tilt:-3deg">
+          <div class="ticket-main">
+            <div class="ticket-row t-label"><span>Wayfarer</span><span>Boarding pass</span></div>
+            <div>
+              <div class="t-label dim">Traveller type</div>
+              <div class="t-name">The Ritualist</div>
+            </div>
+            <div class="t-meta">
+              <dl><dt>From</dt><dd>You</dd></dl>
+              <dl><dt>To</dt><dd>Somewhere lit and loud</dd></dl>
+            </div>
+            <div class="barcode"></div>
+          </div>
+          <div class="ticket-stub">
+            <div class="t-label">Admit one</div>
+            <div>
+              <div class="stub-num">3</div>
+              <div class="stub-cap">Destinations</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="strip" aria-hidden="true">
+      <p class="wrap">Gion Matsuri, Kyoto &nbsp;/&nbsp; Day of the Dead, Oaxaca &nbsp;/&nbsp; Carnival, Rio &nbsp;/&nbsp; Yi Peng, Chiang Mai &nbsp;/&nbsp; Tbilisoba, Tbilisi &nbsp;/&nbsp; Gnawa Festival, Essaouira &nbsp;/&nbsp; Feria de las Flores, Medellín</p>
+    </div>
+
+    <section id="how" class="wrap section section--first">
+      <p class="eyebrow">How it works</p>
+      <h2 class="display h-section">Three steps to your next trip</h2>
+      <div class="grid grid--3">
+        <div class="card step">
+          <div class="step-num">1</div>
+          <h3>Answer six questions</h3>
+          <p>Nights out or early mornings? Crowds or quiet streets? Quick, instinctive picks.</p>
+        </div>
+        <div class="card step">
+          <div class="step-num">2</div>
+          <h3>Meet your traveller type</h3>
+          <p>You get one of four types, each with its own pace, soundtrack and way of seeing a place.</p>
+        </div>
+        <div class="card step">
+          <div class="step-num">3</div>
+          <h3>Get three places to go</h3>
+          <p>Every match comes with its festival, the best months to visit and the sound that goes with it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="types" class="wrap section">
+      <p class="eyebrow">Traveller types</p>
+      <h2 class="display h-section">Four ways to travel</h2>
+      <p class="section-lede">Most people are a mix. The quiz finds the one that pulls hardest.</p>
+      <div class="grid grid--4" id="types-grid"></div>
+    </section>
+
+    <section id="lineup" class="wrap section">
+      <p class="eyebrow">The lineup</p>
+      <h2 class="display h-section">Where the music, lanterns and crowds are</h2>
+      <ul class="lineup" id="lineup-list"></ul>
+    </section>
+
+    <section class="wrap panel-wrap">
+      <div class="panel">
+        <svg class="rings" viewBox="0 0 400 400" aria-hidden="true">
+          <g fill="none" stroke="#25405E" stroke-width="2"><circle cx="200" cy="200" r="60"/><circle cx="200" cy="200" r="110"/><circle cx="200" cy="200" r="160"/><circle cx="200" cy="200" r="198"/></g>
+        </svg>
+        <div class="panel-copy">
+          <h2 class="display">Six questions. About two minutes.</h2>
+          <p>Your ticket is waiting.</p>
+        </div>
+        <div class="panel-actions">
+          <a href="/quiz.html" class="btn btn-primary">Take the quiz</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    <span>Wayfarer</span>
+    <span>Prototype. Destinations and dates are examples.</span>
+  </footer>
+
+  <script type="module" src="/src/home.js"></script>
+</body>
+</html>
