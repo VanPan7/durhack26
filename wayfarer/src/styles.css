@@ -388,3 +388,9 @@ img { max-width: 100%; }
   .card, .opt, .btn, .lineup-row { transition: none; }
   .card:hover { transform: none; }
 }
+
+/* UNESCO activity cards */
+.act-img { width: 100%; height: 190px; object-fit: cover; display: block; }
+.act-title { margin: 0; font-size: 22px; line-height: 1.2; }
+.act-link { color: var(--sun); font-weight: 700; }
+.act-credit { color: var(--muted); font-size: 12px; }

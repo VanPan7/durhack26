@@ -109,3 +109,33 @@ export const ARCHETYPES = {
     ]
   }
 };
+
+// Concepts in the unesco_activities table (primary_concepts) that suit each type.
+// Values must match the table exactly, including capitals.
+export const ARCHETYPE_CONCEPTS = {
+  night: [
+    'Popular music', 'Musical performances', 'Instrumental music', 'Vocal music',
+    'Percussion instruments', 'Improvisation', 'Dance', 'Choreography',
+    'Street art', 'Social gathering', 'Opera', 'Theatrical performances',
+    'Orchestras', 'Musicians', 'Performing arts', 'Throat singing', 'Trance'
+  ],
+  ritual: [
+    'Festivals', 'Festivity', 'Rituals', 'Procession', 'Pilgrimages',
+    'Seasonal ritual', 'Ritual dance', 'Ritual items', 'Masks', 'Costumes',
+    'Handicrafts', 'Craft workers', 'Weaving', 'Embroidery', 'Pottery',
+    'Wood carving', 'Calligraphy', 'Religious practice', 'Sacred sites',
+    'Veneration of the dead', 'New year', 'Lantern', 'Oral tradition'
+  ],
+  wander: [
+    'Food customs', 'Food preparation', 'Food production', 'Bread',
+    'Fermented beverages', 'Beverages', 'Winemaking', 'Brewing',
+    'Hospitality', 'Fair', 'Story telling', 'Folk art', 'Rural areas',
+    'Nomadism', 'Games', 'Toys', 'Traditional medicine', 'Social interaction'
+  ],
+  sun: [
+    'Carnival', 'Float', 'Beauty pageant', 'Dance', 'Choreography',
+    'Festivity', 'Popular music', 'Percussion instruments', 'Body painting',
+    'Sailing', 'Swimming', 'Maritime transport', 'Sport', 'Contests',
+    'Equestrian games', 'Firewalking', 'Acrobatics'
+  ]
+};

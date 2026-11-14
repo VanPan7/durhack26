@@ -1,6 +1,7 @@
 import './styles.css';
 import { ARCHETYPES } from './data.js';
 import { esc } from './lib/escape.js';
+import { activitiesFor } from './lib/activities.js';
 
 // results.html?type=night | ritual | wander | sun
 const requested = new URLSearchParams(window.location.search).get('type');
@@ -97,4 +98,35 @@ document.getElementById('save-btn').addEventListener('click', () => {
 });
 document.getElementById('share-btn').addEventListener('click', () => {
   console.log('Share: not wired up yet', window.location.href);
+});
+
+// UNESCO activities from Supabase that match this traveller type.
+const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
+const safeUrl = (u) => (/^https?:\/\//.test(u || '') ? u : '');
+const countryName = (c) => { try { return regionNames.of(String(c).toUpperCase()); } catch { return c; } };
+const short = (t, n = 170) => { const s = String(t ?? ''); return s.length > n ? `${s.slice(0, n).trimEnd()}…` : s; };
+
+activitiesFor(key).then((acts) => {
+  if (!acts.length) return;
+  const cards = acts.map((a) => {
+    const img = safeUrl(a.image);
+    const link = safeUrl(a.url);
+    return `
+    <article class="card">
+      ${img ? `<img class="act-img" src="${esc(img)}" alt="" loading="lazy">` : ''}
+      <div class="card-body">
+        <p class="card-country">${esc((a.countries || []).map(countryName).join(', '))}</p>
+        <h3 class="act-title">${esc(a.title)}</h3>
+        <p class="card-tag">${esc(short(a.description))}</p>
+        ${link ? `<a class="act-link" href="${esc(link)}" target="_blank" rel="noopener noreferrer">Learn more</a>` : ''}
+        ${a.image_copyright ? `<small class="act-credit">${esc(a.image_copyright)}</small>` : ''}
+      </div>
+    </article>`;
+  }).join('');
+  document.getElementById('results-root').insertAdjacentHTML('beforeend', `
+    <section class="wrap section">
+      <p class="eyebrow" style="color:${esc(d.color)}">Cultural activities</p>
+      <h2 class="display h-section">Experiences for ${esc(d.name)}</h2>
+      <div class="grid grid--dest">${cards}</div>
+    </section>`);
 });
