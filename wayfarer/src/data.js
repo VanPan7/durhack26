@@ -40,12 +40,12 @@ export const QUESTIONS = [
     [['walking', 'nature'], 'To bed to rest. You want to be out bright and early tomorrow.'],
     [['night', 'culture', 'performing'], 'Out! I\'d rather head out during the night to explore.'],
     [['crafts'], 'The night market! All the best stuff is there.'],
-    [['family'], 'On a rooftop, watching the sky change colour']
+    [['walking', 'night'], 'Wherever my feet take me.']
   ]},
-  { q: 'Pick the soundtrack for the whole trip.', options: [
-    ['night', 'A DJ set that runs until sunrise'],
-    ['ritual', 'Drums, chants and instruments older than the town'],
-    ['wander', 'Street musicians and whatever the taxi radio plays'],
+  { q: 'On a rainy day, what do you find yourself doing?', options: [
+    [['crafts'], 'Putting to use whatever crafts and bits I\'ve collected around the house.'],
+    [['history', 'culture'], 'Find a nice museum or indoor outing for the day.'],
+    [[], 'Street musicians and whatever the taxi radio plays'],
     ['sun', 'Samba, soca or reggaeton with the windows down']
   ]},
   { q: "What's the first thing in your bag?", options: [
