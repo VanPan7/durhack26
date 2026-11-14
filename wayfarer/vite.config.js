@@ -10,7 +10,8 @@ export default defineConfig({
       input: {
         main: page('./index.html'),
         quiz: page('./quiz.html'),
-        results: page('./results.html')
+        results: page('./results.html'),
+        auth: page('./auth.html')
       }
     }
   }

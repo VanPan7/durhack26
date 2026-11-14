@@ -24,6 +24,7 @@ npm run preview   # serve the built site locally
 ## Pages
 
 - `index.html` is the landing page.
+- `auth.html` is sign up and sign in (Supabase email and password).
 - `quiz.html` is the six-question quiz. It sends you to `results.html?type=<type>`.
 - `results.html` shows the traveller type and three destinations. Try `results.html?type=night`, `ritual`, `wander` or `sun`.
 
