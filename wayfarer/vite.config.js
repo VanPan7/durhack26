@@ -11,7 +11,8 @@ export default defineConfig({
         main: page('./index.html'),
         quiz: page('./quiz.html'),
         results: page('./results.html'),
-        auth: page('./auth.html')
+        auth: page('./auth.html'),
+        group: page('./group.html')
       }
     }
   }
