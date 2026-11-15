@@ -2,7 +2,8 @@ import './styles.css';
 import { esc } from './lib/escape.js';
 import { ARCHETYPES, TYPE_ORDER } from './data.js';
 import { createGroup, groupExists, listMembers, normaliseCode, getName, setName } from './lib/groups.js';
-import { rankDestinations, topPicks } from './lib/group.js';
+import { rankCountries, groupWeights } from './lib/group.js';
+import { loadAffinity, activitiesIn } from './lib/activities.js';
 
 const root = document.getElementById('group-root');
 const code = normaliseCode(new URLSearchParams(window.location.search).get('code'));
@@ -62,9 +63,29 @@ function memberRows(members) {
   }).join('');
 }
 
-function pickCards(members) {
+const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
+const countryName = (c) => { try { return regionNames.of(String(c).toUpperCase()); } catch { return c; } };
+const short = (t, n = 110) => { const x = String(t ?? ''); return x.length > n ? `${x.slice(0, n).trimEnd()}…` : x; };
+const safeUrl = (u) => (/^https?:\/\//.test(u || '') ? u : '');
+
+// Countries and activities come from unesco_activities. Recomputed only when the
+// set of answers changes, not on every 10-second refresh.
+let cacheKey = '';
+let cachePicks = { picks: [], acts: {} };
+async function computePicks(members) {
+  const key = JSON.stringify(members.map((m) => [m.name, m.scores]));
+  if (key === cacheKey) return cachePicks;
+  const affinity = await loadAffinity();
+  const picks = rankCountries(members, affinity, 3);
+  const acts = await activitiesIn(picks.map((p) => p.code), groupWeights(members), 2);
+  cacheKey = key;
+  cachePicks = { picks, acts };
+  return cachePicks;
+}
+
+function pickCards(members, { picks, acts }) {
   if (!members.length) return '';
-  const picks = topPicks(rankDestinations(members), 3);
+  if (!picks.length) return '<section class="section"><p class="lede">We could not load destinations right now. Check that Supabase is connected.</p></section>';
   const note = members.length < 2 ? '<p class="card-traits">Invite a friend to see a real compromise.</p>' : '';
   return `
     <section class="section group-picks">
@@ -75,18 +96,18 @@ function pickCards(members) {
         <article class="card">
           <div class="poster poster--dest" style="--accent:${esc(ARCHETYPES[r.type].color)}">
             <span class="pill">${i === 0 ? 'Top pick' : `Pick ${i + 1}`}</span>
-            <div class="poster-title">${esc(r.place.name)}</div>
+            <div class="poster-title">${esc(countryName(r.code))}</div>
           </div>
           <div class="card-body card-body--dest">
-            <p class="card-country">${esc(r.place.country)} · ${pct(r.score)} group match</p>
-            <p class="card-tag">${esc(r.place.blurb)}</p>
-            <dl class="facts">
-              <div class="fact"><dt>Festival</dt><dd>${esc(r.place.festival)}</dd></div>
-              <div class="fact"><dt>When</dt><dd>${esc(r.place.when)}</dd></div>
-            </dl>
+            <p class="card-country">${Math.round(r.score * 100)}% group match</p>
             <ul class="fit-list" aria-label="How well each person fits">${r.perMember.map((p) => `
               <li><span>${esc(p.name)}</span><span class="fit-bar" aria-hidden="true"><i style="width:${pct(p.value)}"></i></span><span>${pct(p.value)}</span></li>`).join('')}
             </ul>
+            <ul class="act-list">${(acts[r.code] || []).map((a) => {
+              const link = safeUrl(a.url);
+              const title = link ? `<a class="act-link" href="${esc(link)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>` : esc(a.title);
+              return `<li><strong>${title}</strong><span>${esc(short(a.description))}</span></li>`;
+            }).join('')}</ul>
           </div>
         </article>`).join('')}
       </div>
@@ -95,6 +116,7 @@ function pickCards(members) {
 
 async function groupView() {
   const { members, error } = await listMembers(code);
+  const computed = members.length ? await computePicks(members) : { picks: [], acts: {} };
   const link = `${window.location.origin}/group.html?code=${code}`;
   const name = getName();
   const mine = name && members.some((m) => m.name.toLowerCase() === name.toLowerCase());
@@ -116,7 +138,7 @@ async function groupView() {
       </form>
       <p class="card-traits">The page updates as friends finish.</p>
     </div>
-    ${pickCards(members)}`;
+    ${pickCards(members, computed)}`;
 
   document.getElementById('copy-link').addEventListener('click', async (e) => {
     try { await navigator.clipboard.writeText(link); e.currentTarget.textContent = 'Copied'; }
