@@ -4,6 +4,7 @@ import { ARCHETYPES, TYPE_ORDER } from './data.js';
 import { createGroup, groupExists, listMembers, normaliseCode, getName, setName } from './lib/groups.js';
 import { rankCountries, groupWeights } from './lib/group.js';
 import { loadAffinity, activitiesIn } from './lib/activities.js';
+import { pickPhoto, photoLayer, photoCredit, guardPhotos } from './lib/poster.js';
 
 const root = document.getElementById('group-root');
 const code = normaliseCode(new URLSearchParams(window.location.search).get('code'));
@@ -77,7 +78,7 @@ async function computePicks(members) {
   if (key === cacheKey) return cachePicks;
   const affinity = await loadAffinity();
   const picks = rankCountries(members, affinity, 3);
-  const acts = await activitiesIn(picks.map((p) => p.code), groupWeights(members), 2);
+  const acts = await activitiesIn(picks.map((p) => p.code), groupWeights(members), 4);
   cacheKey = key;
   cachePicks = { picks, acts };
   return cachePicks;
@@ -92,9 +93,12 @@ function pickCards(members, { picks, acts }) {
       <p class="eyebrow">Best fit for ${members.length} ${members.length === 1 ? 'traveller' : 'travellers'}</p>
       <h2 class="display h-section">Where you should go</h2>
       ${note}
-      <div class="grid grid--dest">${picks.map((r, i) => `
+      <div class="grid grid--dest">${picks.map((r, i) => {
+        const photo = pickPhoto(acts[r.code]);
+        return `
         <article class="card">
-          <div class="poster poster--dest" style="--accent:${esc(ARCHETYPES[r.type].color)}">
+          <div class="poster poster--dest${photo ? ' poster--photo' : ''}" style="--accent:${esc(ARCHETYPES[r.type].color)}">
+            ${photoLayer(photo)}
             <span class="pill">${i === 0 ? 'Top pick' : `Pick ${i + 1}`}</span>
             <div class="poster-title">${esc(countryName(r.code))}</div>
           </div>
@@ -103,13 +107,15 @@ function pickCards(members, { picks, acts }) {
             <ul class="fit-list" aria-label="How well each person fits">${r.perMember.map((p) => `
               <li><span>${esc(p.name)}</span><span class="fit-bar" aria-hidden="true"><i style="width:${pct(p.value)}"></i></span><span>${pct(p.value)}</span></li>`).join('')}
             </ul>
-            <ul class="act-list">${(acts[r.code] || []).map((a) => {
+            ${photoCredit(photo)}
+            <ul class="act-list">${(acts[r.code] || []).slice(0, 2).map((a) => {
               const link = safeUrl(a.url);
               const title = link ? `<a class="act-link" href="${esc(link)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>` : esc(a.title);
               return `<li><strong>${title}</strong><span>${esc(short(a.description))}</span></li>`;
             }).join('')}</ul>
           </div>
-        </article>`).join('')}
+        </article>`;
+      }).join('')}
       </div>
     </section>`;
 }
@@ -151,6 +157,7 @@ async function groupView() {
     setName(n);
     window.location.href = `/quiz.html?group=${code}`;
   });
+  guardPhotos(root);
   if (keepFocus === 'copy-link') document.getElementById('copy-link')?.focus();
 }
 
