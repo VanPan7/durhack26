@@ -53,31 +53,33 @@ document.getElementById('results-root').innerHTML = `
     <h2 class="display h-section">Countries that sound like you</h2>
     <div id="dest-root"><p class="lede" role="status">Finding your countries…</p></div>
   </section>
-
-  <section class="wrap panel-wrap">
-    <div class="panel panel--sm">
-      <svg class="rings" viewBox="0 0 400 400" aria-hidden="true">
-        <g fill="none" stroke="#25405E" stroke-width="2"><circle cx="200" cy="200" r="60"/><circle cx="200" cy="200" r="110"/><circle cx="200" cy="200" r="160"/><circle cx="200" cy="200" r="198"/></g>
-      </svg>
-      <div class="panel-copy">
-        <h2 class="display">Keep this ticket</h2>
-        <p>Save your result or send it to whoever is coming with you.</p>
-      </div>
-      <div class="panel-actions">
-        <button type="button" class="btn btn-primary" id="save-btn">Save my results</button>
-        <button type="button" class="btn btn-ghost" id="share-btn">Share with a friend</button>
-      </div>
-    </div>
-  </section>
 `;
 
+// unused html
+//   <section class="wrap panel-wrap">
+  //   <div class="panel panel--sm">
+  //     <svg class="rings" viewBox="0 0 400 400" aria-hidden="true">
+  //       <g fill="none" stroke="#25405E" stroke-width="2"><circle cx="200" cy="200" r="60"/><circle cx="200" cy="200" r="110"/><circle cx="200" cy="200" r="160"/><circle cx="200" cy="200" r="198"/></g>
+  //     </svg>
+  //     <div class="panel-copy">
+  //       <h2 class="display">Keep this ticket</h2>
+  //       <p>Save your result or send it to whoever is coming with you.</p>
+  //     </div>
+  //     <div class="panel-actions">
+  //       <button type="button" class="btn btn-primary" id="save-btn">Save my results</button>
+  //       <button type="button" class="btn btn-ghost" id="share-btn">Share with a friend</button>
+  //     </div>
+  //   </div>
+  // </section>
+
+
 // Placeholders for the Supabase step. Nothing is saved or shared yet.
-document.getElementById('save-btn').addEventListener('click', () => {
-  console.log('Save results: not wired up yet', { type: key });
-});
-document.getElementById('share-btn').addEventListener('click', () => {
-  console.log('Share: not wired up yet', window.location.href);
-});
+// document.getElementById('save-btn').addEventListener('click', () => {
+//   console.log('Save results: not wired up yet', { type: key });
+// });
+// document.getElementById('share-btn').addEventListener('click', () => {
+//   console.log('Share: not wired up yet', window.location.href);
+// });
 
 
 const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
