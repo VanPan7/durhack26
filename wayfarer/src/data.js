@@ -93,7 +93,7 @@ export const QUESTIONS = [
   { q: 'What do you find most relaxing?', options: [
     [['performing', 'crafts'], 'Pool day followed by a luxurious spa.'],
     [['food', 'nature'], 'Beach day with ice cream.'],
-    [['night', 'culture'], 'Listening to good music, with fun people, and letting loose.']
+    [['night', 'culture'], 'Listening to good music, with fun people, and letting loose.'],
     [['walking', 'history'], 'Long walks, good scenery, and some cool archaeological sites along the way.']
   ]}
 ];
