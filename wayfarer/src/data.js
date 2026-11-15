@@ -98,93 +98,60 @@ export const QUESTIONS = [
   ]}
 ];
 
-// Tie-break order when two types score the same.
-export const TYPE_ORDER = ['night', 'ritual', 'wander', 'sun'];
+// The eight traveller types. The order breaks ties when two types score the same.
+export const TYPE_ORDER = ['night', 'performing', 'culture', 'food', 'walking', 'crafts', 'nature', 'history'];
 
+// Each type belongs to one column ("category") of the concept_categories table in
+// Supabase. That column lists the unesco_activities concepts for the type, and the
+// recommended countries are worked out from the activities that use those concepts.
+// Category names must match the column names in the table exactly.
 export const ARCHETYPES = {
   night: {
-    name: 'The Nocturnal Traveller', color: '#3DD6C0',
+    name: 'The Nocturnal Traveller', color: '#3DD6C0', category: 'Night life',
     tag: 'Even abroad, you wouldn\'t dream of getting up before 5pm.',
-    blurb: 'You plan trips around a line-up, not a landmark. Great sound, a good crowd and a late finish matter more than a sunrise view.',
-    traits: 'Live music / Clubs / Late nights', sound: 'Techno and folk',
-    places: [
-      { rank: 'Top match', name: 'Berlin', country: 'Germany', blurb: 'Warehouse floors, lakeside open-airs and a scene that takes its music seriously.', festival: 'Open-air club season', when: 'May to September', sound: 'Techno, house, experimental' },
-      { rank: 'Also fits', name: 'Tbilisi', country: 'Georgia', blurb: 'Clubs built into a stadium basement and under a bridge, with polyphonic singing in the old town.', festival: 'Tbilisoba', when: 'October', sound: 'Techno, polyphonic folk' },
-      { rank: 'Wildcard', name: 'Medellín', country: 'Colombia', blurb: 'Salsa bars and reggaeton clubs in a warm, hillside city that stays up late.', festival: 'Feria de las Flores', when: 'August', sound: 'Reggaeton, salsa' }
-    ]
+    blurb: 'You plan trips around the evening, not the landmark. Great sound, a good crowd and a late finish matter more than a sunrise view.',
+    traits: 'Live music / Clubs / Late nights'
   },
   performing: {
-    name: 'The Patron', color: '#FFB547',
-    tag: 'Theater, dance, music; that\'s what travelling is all about.',
-    blurb: 'Processions, lanterns, altars and old songs. You time your trip to the calendar and come home with names, recipes and stories.',
-    traits: 'Festivals / Craft / Heritage', sound: 'Drums and bells',
-    places: [
-      { rank: 'Top match', name: 'Kyoto', country: 'Japan', blurb: 'Lantern-lit evenings and towering festival floats move through the old city streets.', festival: 'Gion Matsuri', when: 'July', sound: 'Taiko drums, temple bells' },
-      { rank: 'Also fits', name: 'Oaxaca', country: 'Mexico', blurb: 'Marigold altars, cemetery vigils and brass bands winding through the neighbourhoods.', festival: 'Day of the Dead', when: '31 October to 2 November', sound: 'Brass bands, marimba' },
-      { rank: 'Wildcard', name: 'Chiang Mai', country: 'Thailand', blurb: 'Paper lanterns rise over the old city and floating baskets drift down the river.', festival: 'Yi Peng and Loy Krathong', when: 'November', sound: 'Monk chants, festival drums' }
-    ]
-  },
-  walking: {
-    name: 'The Walker', color: '#FF6B4A',
-    tag: 'Sometimes, the best thing you can do on holiday is to strecth your legs and explore.',
-    blurb: 'Markets, side streets and long lunches. You leave room in the bag, and in the day, for whatever turns up.',
-    traits: 'Rural areas / Navigation / Slow days', sound: 'Street music',
-    places: [
-      { rank: 'Top match', name: 'Lisbon', country: 'Portugal', blurb: 'Tiled hills, tiny tascas and fado drifting out of Alfama doorways at night.', festival: 'Festas de Lisboa', when: 'June', sound: 'Fado, tram bells' },
-      { rank: 'Also fits', name: 'Marrakech', country: 'Morocco', blurb: 'A square that turns into a night market, with storytellers and drummers in the smoke.', festival: 'Gnawa Festival, Essaouira', when: 'June', sound: 'Gnawa drums, storytellers' },
-      { rank: 'Wildcard', name: 'Hoi An', country: 'Vietnam', blurb: 'Lantern-lined streets, tailors on every corner and a riverside that glows each full moon.', festival: 'Full Moon Lantern Festival', when: 'Monthly', sound: 'Riverside music, bicycle bells' }
-    ]
+    name: 'The Patron', color: '#FFB547', category: 'Performing arts',
+    tag: 'Theatre, dance, music; that\'s what travelling is all about.',
+    blurb: 'You book the show before the hotel. Stages, street performers and old songs shape your route, and you come home humming something nobody back home has heard.',
+    traits: 'Theatre / Dance / Music'
   },
   culture: {
-    name: 'The People-Person', color: '#FF8FA3',
+    name: 'The People-Person', color: '#FF6B4A', category: 'Culture',
     tag: 'What\'s the point of going abroad if not to engage with local culture?',
-    blurb: 'Warm nights, big drums and a beach never far away. You travel toward the loudest, brightest week on the calendar.',
-    traits: 'Carnival / Socio-cultural practices / Warm nights', sound: 'Samba and soca',
-    places: [
-      { rank: 'Top match', name: 'Rio de Janeiro', country: 'Brazil', blurb: 'Samba schools, neighbourhood blocos and beach days between parades.', festival: 'Carnival', when: 'February or March', sound: 'Samba, bloco drums' },
-      { rank: 'Also fits', name: 'Port of Spain', country: 'Trinidad and Tobago', blurb: 'Costumes, steel pan and soca trucks fill the streets for the biggest days of the year.', festival: 'Trinidad Carnival', when: 'February or March', sound: 'Soca, steel pan' },
-      { rank: 'Wildcard', name: 'Cartagena', country: 'Colombia', blurb: 'Walled-city evenings with cumbia in the plazas and a Caribbean coast on the doorstep.', festival: 'Festival Internacional de Música', when: 'January', sound: 'Cumbia, champeta' }
-    ]
+    blurb: 'You travel for the people. Local customs, community events and a conversation with whoever is next to you matter more than any checklist.',
+    traits: 'Customs / Community / Local life'
   },
   food: {
-    name: 'The Food-Lover', color: '#FF8FA3',
+    name: 'The Food-Lover', color: '#FF8FA3', category: 'Food',
     tag: 'No matter where you go, the best part of a holiday is hitting up all the local restaurants!',
-    blurb: 'Warm nights, big drums and a beach never far away. You travel toward the loudest, brightest week on the calendar.',
-    traits: 'Food customs / Food preparation / Oven', sound: 'Soul and jazz',
-    places: [
-      { rank: 'Top match', name: 'Rio de Janeiro', country: 'Brazil', blurb: 'Samba schools, neighbourhood blocos and beach days between parades.', festival: 'Carnival', when: 'February or March', sound: 'Samba, bloco drums' },
-      { rank: 'Also fits', name: 'Port of Spain', country: 'Trinidad and Tobago', blurb: 'Costumes, steel pan and soca trucks fill the streets for the biggest days of the year.', festival: 'Trinidad Carnival', when: 'February or March', sound: 'Soca, steel pan' },
-      { rank: 'Wildcard', name: 'Cartagena', country: 'Colombia', blurb: 'Walled-city evenings with cumbia in the plazas and a Caribbean coast on the doorstep.', festival: 'Festival Internacional de Música', when: 'January', sound: 'Cumbia, champeta' }
-    ]
+    blurb: 'Your itinerary is a list of meals. Markets, family kitchens and the dish a town is proud of are what you remember long after the photos.',
+    traits: 'Local dishes / Markets / Long lunches'
+  },
+  walking: {
+    name: 'The Walker', color: '#7BC96F', category: 'Walking around/explore',
+    tag: 'Sometimes, the best thing you can do on holiday is stretch your legs and explore.',
+    blurb: 'You leave room in the day for whatever turns up. Side streets, bridges and wrong turns are how you find the places the guidebooks missed.',
+    traits: 'Side streets / Wandering / Slow days'
+  },
+  crafts: {
+    name: 'The Crafter-Collector', color: '#B48CFF', category: 'Crafts & collecting',
+    tag: 'Souvenirs and local craft techniques are the main thing catching your eye when you travel.',
+    blurb: 'You want to see how it is made and take a piece home. Workshops, workshops and more workshops, and a bag that gets heavier every day.',
+    traits: 'Workshops / Handmade / Souvenirs'
+  },
+  nature: {
+    name: 'The Nature-Lover', color: '#4DB6FF', category: 'Nature',
+    tag: 'For you, the best way to unwind is a local nature reserve or a walk on a rocky beach.',
+    blurb: 'Weather, water and wide skies set your plans. You look for places where people and landscape have lived together for a long time.',
+    traits: 'Landscapes / Wildlife / Open air'
+  },
+  history: {
+    name: 'The Historian', color: '#E0B07A', category: 'History',
+    tag: 'Even on holiday, you seek out new knowledge and information.',
+    blurb: 'You want the story behind the place. Archives, old routes and living traditions tell you who was here before and why it still matters.',
+    traits: 'Heritage / Archives / Old stories'
   }
-};
-
-// Concepts in the unesco_activities table (primary_concepts) that suit each type.
-// Values must match the table exactly, including capitals.
-export const ARCHETYPE_CONCEPTS = {
-  night: [
-    'Popular music', 'Musical performances', 'Instrumental music', 'Vocal music',
-    'Percussion instruments', 'Improvisation', 'Dance', 'Choreography',
-    'Street art', 'Social gathering', 'Opera', 'Theatrical performances',
-    'Orchestras', 'Musicians', 'Performing arts', 'Throat singing', 'Trance'
-  ],
-  ritual: [
-    'Festivals', 'Festivity', 'Rituals', 'Procession', 'Pilgrimages',
-    'Seasonal ritual', 'Ritual dance', 'Ritual items', 'Masks', 'Costumes',
-    'Handicrafts', 'Craft workers', 'Weaving', 'Embroidery', 'Pottery',
-    'Wood carving', 'Calligraphy', 'Religious practice', 'Sacred sites',
-    'Veneration of the dead', 'New year', 'Lantern', 'Oral tradition'
-  ],
-  wander: [
-    'Food customs', 'Food preparation', 'Food production', 'Bread',
-    'Fermented beverages', 'Beverages', 'Winemaking', 'Brewing',
-    'Hospitality', 'Fair', 'Story telling', 'Folk art', 'Rural areas',
-    'Nomadism', 'Games', 'Toys', 'Traditional medicine', 'Social interaction'
-  ],
-  sun: [
-    'Carnival', 'Float', 'Beauty pageant', 'Dance', 'Choreography',
-    'Festivity', 'Popular music', 'Percussion instruments', 'Body painting',
-    'Sailing', 'Swimming', 'Maritime transport', 'Sport', 'Contests',
-    'Equestrian games', 'Firewalking', 'Acrobatics'
-  ]
 };

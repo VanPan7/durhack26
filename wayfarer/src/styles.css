@@ -427,3 +427,7 @@ img { max-width: 100%; }
 .fit-list li span:last-child { text-align: right; font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .fit-bar { height: 6px; background: var(--night); border-radius: 3px; overflow: hidden; }
 .fit-bar i { display: block; height: 100%; background: var(--teal); }
+
+.act-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.act-list li { display: flex; flex-direction: column; gap: 4px; font-size: 15px; line-height: 1.4; }
+.act-list li span { color: var(--muted); font-size: 14px; }

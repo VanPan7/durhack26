@@ -10,9 +10,13 @@ const answers = [];
 // quiz.html?group=ABC123 saves the result to that group instead of showing a solo result.
 const groupCode = normaliseCode(new URLSearchParams(window.location.search).get('group'));
 
+// An option can vote for one type ('food') or several (['walking', 'nature']).
+// An answer with several types splits its single vote between them.
+const asTags = (tag) => String(tag).split(',').filter((t) => TYPE_ORDER.includes(t));
+
 function tally() {
   const counts = Object.fromEntries(TYPE_ORDER.map((k) => [k, 0]));
-  answers.forEach((a) => { counts[a] += 1; });
+  answers.forEach((tags) => { tags.forEach((t) => { counts[t] += 1 / tags.length; }); });
   return counts;
 }
 
@@ -24,7 +28,7 @@ function winningType() {
 }
 
 function pick(tag) {
-  answers.push(tag);
+  answers.push(asTags(tag));
   if (answers.length >= QUESTIONS.length) {
     if (groupCode) return finishForGroup();
     window.location.href = `/results.html?type=${winningType()}`;
@@ -60,7 +64,7 @@ function render() {
   }).join('');
 
   const options = q.options.map(([tag, label], i) => `
-    <button type="button" class="opt" data-pick="${esc(tag)}">
+    <button type="button" class="opt" data-pick="${esc([].concat(tag).join(','))}">
       <span class="opt-badge">${LETTERS[i]}</span>
       <span class="opt-label">${esc(label)}</span>
     </button>
