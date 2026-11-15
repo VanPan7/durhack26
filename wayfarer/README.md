@@ -4,7 +4,7 @@ A travel destination recommender with a six-question personality quiz. Plain HTM
 
 ## Run it locally
 
-You need Node.js 18 or newer.
+You need Node.js 18 or newer. Ensure Python's Vite package is installed.
 
 ```bash
 npm install
