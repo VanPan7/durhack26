@@ -39,39 +39,62 @@ export const QUESTIONS = [
   { q: "It's 9pm in a city you've never been to. Where are you heading?", options: [
     [['walking', 'nature'], 'To bed to rest. You want to be out bright and early tomorrow.'],
     [['night', 'culture', 'performing'], 'Out! I\'d rather head out during the night to explore.'],
-    [['crafts'], 'The night market! All the best stuff is there.'],
+    [['crafts', 'culture'], 'The night market! All the best stuff is there.'],
     [['walking', 'night'], 'Wherever my feet take me.']
   ]},
   { q: 'On a rainy day, what do you find yourself doing?', options: [
     [['crafts'], 'Collecting or scrapbooking all the things I\'ve found so far.'],
     [['history', 'culture'], 'Find a nice museum or indoor outing for the day.'],
-    [['nature'], 'Watching the rain out the window.'],
+    [['nature', 'night'], 'Watching the rain out the window.'],
     [['walking'], 'Ignore it; I don\'t mind the rain all that much.']
   ]},
   { q: "What's the first thing you look forwards to in a new city?", options: [
     [['food'], 'Food.'],
     [['walking', 'history', 'culture', 'nature'], 'All the new sights to see!'],
     [['crafts'], 'Souvenirs for myself and my friends :).'],
-    [['night'], 'The new nightlife >:)'],
-    [['performing', 'culture'], 'Whatever music, drama or arts they have to show!']
+    [['culture', 'performing'], 'The new music, arts, drama they have to show!']
   ]},
   { q: 'How do you plan a day?', options: [
-    ['night', 'Sleep in, then work backwards from the headliner'],
-    ['ritual', 'Around whatever the calendar says is happening'],
-    ['wander', 'I do not. I pick a direction and walk'],
-    ['sun', 'Beach first, everything else second']
+    [['night', 'performing'], 'Sleep in, then work backwards from a main idea'],
+    [['culture', 'history'], 'Around whatever the calendar says is happening'],
+    ['walking', 'I do not. I pick a direction and walk'],
+    [['nature', 'walking'], 'Beach first, everything else second']
   ]},
   { q: 'Which souvenir wins?', options: [
-    ['night', 'A wristband I refuse to cut off'],
-    ['ritual', 'Something handmade by the person who sold it'],
-    ['wander', "A bag of spices I'll never use properly"],
-    ['sun', 'A tan line and a playlist']
+    [['night', 'performing'], 'A wristband I refuse to cut off'],
+    [['crafts', 'culture', 'history'], 'Something handmade by the person who sold it'],
+    [['walking', 'food'], "A bag of spices I'll never use properly"],
+    [['nature', 'walking'], 'A tan line and a playlist']
   ]},
   { q: 'How does the trip end?', options: [
-    ['night', 'Still dancing, with a flight in four hours'],
-    ['ritual', 'Quietly, after one last ceremony'],
-    ['wander', 'With a long lunch and no plans'],
-    ['sun', 'Watching the last sunset from the water']
+    [['night', 'performing'], 'Still dancing, with a flight in four hours'],
+    [['culture', 'history'], 'Quietly, after one last ceremony'],
+    [['walking', 'food'], 'With a long lunch and no plans'],
+    ['nature', 'Watching the last sunset from the water']
+  ]},
+  { q: 'You leave the holiday with an extra suitcase full of what?', options: [
+    [['night', 'performing'], 'Clothes, accessories, and lots of hats!'],
+    [['night', 'food'], 'Duty free alcohol and photobooth pictures.'],
+    [['culture', 'food'], 'Lots of local delicacies and artisanal crafts.'],
+    [['nature', 'walking'], 'Books on local wildlife and local viewpoints and scenery']
+  ]},
+  { q: 'Your instagram holiday dump is full of what?', options: [
+    [['nature', 'walking', 'history'], 'Panoramic shots of the scenery.'],
+    ['food', 'Loads of food pics.'],
+    [['culture', 'night', 'performing'], 'Selfies, photobooth shots, club photos!'],
+    [['crafts', 'culture'], 'Stuff you\'ve done with locals']
+  ]},
+  { q: 'Your perfect excursion consists of?', options: [
+    [['history', 'food'], 'Guided tour of ancient ruins, followed by lunch overlooking the scenery.'],
+    [['crafts', 'nature'], 'Swimming with dolphins and floating in crystal blue waters.'],
+    [['walking', 'performing', 'culture'], 'Go and explore the town and looking at all the street performances.'],
+    ['night', 'Pub crawl around the town and meet people.']
+  ]},
+  { q: 'What do you find most relaxing?', options: [
+    [['', ''], 'Spa day.'],
+    [['', ''], 'Swimming with dolphins and floating in crystal blue waters.'],
+    [['', ''], 'Go and explore the town and looking at all the street performances.'],
+    [['', ''], 'Books on local wildlife and local viewpoints and scenery']
   ]}
 ];
 
