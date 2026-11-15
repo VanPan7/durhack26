@@ -1,5 +1,5 @@
 import './styles.css';
-import { ARCHETYPES } from './data.js';
+import { ARCHETYPES, CATEGORIES, TYPE_CATEGORIES } from './data.js';
 import { esc } from './lib/escape.js';
 import { activitiesFor } from './lib/activities.js';
 
@@ -7,6 +7,11 @@ import { activitiesFor } from './lib/activities.js';
 const requested = new URLSearchParams(window.location.search).get('type');
 const key = Object.prototype.hasOwnProperty.call(ARCHETYPES, requested) ? requested : 'ritual';
 const d = ARCHETYPES[key];
+
+// results.html?type=sun&cat=Nature&cat=Food ; unknown categories are ignored.
+const urlCats = new URLSearchParams(window.location.search).getAll('cat').filter((c) => CATEGORIES.includes(c));
+const categories = (urlCats.length ? urlCats : TYPE_CATEGORIES[key])
+  .map((name, i, all) => ({ name, weight: all.length - i }));
 
 document.title = `${d.name} | Wayfarer`;
 
@@ -106,7 +111,7 @@ const safeUrl = (u) => (/^https?:\/\//.test(u || '') ? u : '');
 const countryName = (c) => { try { return regionNames.of(String(c).toUpperCase()); } catch { return c; } };
 const short = (t, n = 170) => { const s = String(t ?? ''); return s.length > n ? `${s.slice(0, n).trimEnd()}…` : s; };
 
-activitiesFor(key).then((acts) => {
+activitiesFor(categories).then((acts) => {
   if (!acts.length) return;
   const cards = acts.map((a) => {
     const img = safeUrl(a.image);
@@ -127,6 +132,7 @@ activitiesFor(key).then((acts) => {
     <section class="wrap section">
       <p class="eyebrow" style="color:${esc(d.color)}">Cultural activities</p>
       <h2 class="display h-section">Experiences for ${esc(d.name)}</h2>
+      <p class="lede">Based on your love of ${esc(categories.map((c) => c.name.toLowerCase()).join(', '))}.</p>
       <div class="grid grid--dest">${cards}</div>
     </section>`);
 });
