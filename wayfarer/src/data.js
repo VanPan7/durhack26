@@ -16,13 +16,13 @@ export const TYPES = [
   { key: 'performing', name: 'The Patron', tag: 'Theatre, dance, music; that\'s what travellings all about.', traits: 'Festivals / Craft / Heritage', color: '#FFB547' },
   { key: 'culture', name: 'The People-Person', tag: 'What\'s the point of going abroad if not to engage with local culture?', traits: 'Markets / Street food / Slow days', color: '#FF6B4A' },
   { key: 'food', name: 'The Food-Lover', tag: 'No matter where you go, the best part of any holiday is hitting up the local restaurants.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' },
-  { key: 'walking', name: 'The Walker', tag: 'Sometimes, the best thing on holiday is just to stretch your legs and explore.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' },
-  { key: 'crafts', name: 'The Crafter-Collector', tag: 'Souvenirs and local craft techniques are the main thing catching your eye when you travel.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' },
-  { key: 'nature', name: 'The Nature-Lover', tag: 'For you, the best way to unwind is a local nature reserve or walk on a rock beach.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' },
-  { key: 'history', name: 'The Historian', tag: 'Even on holiday, you seek out new knowledge and information.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' }
+  { key: 'walking', name: 'The Walker', tag: 'Sometimes, the best thing on holiday is just to stretch your legs and explore.', traits: 'Adventure / New experiences / New worlds', color: '#FFDBBB' },
+  { key: 'crafts', name: 'The Crafter-Collector', tag: 'Souvenirs and local craft techniques are the main thing catching your eye when you travel.', traits: 'Souvenirs / Craftsmanship / Markets', color: '#ADD8E6' },
+  { key: 'nature', name: 'The Nature-Lover', tag: 'For you, the best way to unwind is a local nature reserve or walk on a rock beach.', traits: 'Forests / Beaches / Fresh air ', color: '#8A9A5B' },
+  { key: 'history', name: 'The Historian', tag: 'Even on holiday, you seek out new knowledge and information.', traits: 'Museums / Local history / Architecture', color: '#C8A2C8' }
 ];
 
-export const LINEUP = [
+/*export const LINEUP = [
   { place: 'Kyoto', festival: 'Gion Matsuri', when: 'July', color: '#FFB547' },
   { place: 'Oaxaca', festival: 'Day of the Dead', when: '31 Oct to 2 Nov', color: '#FFB547' },
   { place: 'Rio de Janeiro', festival: 'Carnival', when: 'Feb or Mar', color: '#FF8FA3' },
@@ -32,7 +32,7 @@ export const LINEUP = [
   { place: 'Marrakech', festival: 'Gnawa Festival, Essaouira', when: 'June', color: '#FF6B4A' },
   { place: 'Port of Spain', festival: 'Trinidad Carnival', when: 'Feb or Mar', color: '#FF8FA3' },
   { place: 'Medellín', festival: 'Feria de las Flores', when: 'August', color: '#3DD6C0' }
-];
+];*/
 
 // Each option carries the traveller type it votes for.
 export const QUESTIONS = [
@@ -131,7 +131,7 @@ export const ARCHETYPES = {
     traits: 'Local dishes / Markets / Long lunches'
   },
   walking: {
-    name: 'The Walker', color: '#7BC96F', category: 'Walking around/explore',
+    name: 'The Walker', color: '#FFDBBB', category: 'Walking around/explore',
     tag: 'Sometimes, the best thing you can do on holiday is stretch your legs and explore.',
     blurb: 'You leave room in the day for whatever turns up. Side streets, bridges and wrong turns are how you find the places the guidebooks missed.',
     traits: 'Side streets / Wandering / Slow days'

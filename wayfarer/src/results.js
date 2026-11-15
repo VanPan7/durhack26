@@ -2,6 +2,7 @@ import './styles.css';
 import { ARCHETYPES, TYPE_ORDER } from './data.js';
 import { esc } from './lib/escape.js';
 import { countriesFor, activitiesIn } from './lib/activities.js';
+import { pickPhoto, photoLayer, photoCredit, guardPhotos } from './lib/poster.js';
 
 // results.html?type=night | performing | culture | food | walking | crafts | nature | history
 const requested = new URLSearchParams(window.location.search).get('type');
@@ -100,11 +101,14 @@ const RANKS = ['Top match', 'Also fits', 'Wildcard'];
   }
   document.getElementById('top-pick').textContent = countryName(countries[0].code);
   document.getElementById('stub-num').textContent = String(countries.length);
-  const acts = await activitiesIn(countries.map((c) => c.code), { [key]: 1 });
+  const acts = await activitiesIn(countries.map((c) => c.code), { [key]: 1 }, 6);
 
-  dest.innerHTML = `<div class="grid grid--dest">${countries.map((c, i) => `
+  dest.innerHTML = `<div class="grid grid--dest">${countries.map((c, i) => {
+    const photo = pickPhoto(acts[c.code]);
+    return `
     <article class="card">
-      <div class="poster poster--dest" style="--accent:${esc(d.color)}">
+      <div class="poster poster--dest${photo ? ' poster--photo' : ''}" style="--accent:${esc(d.color)}">
+        ${photoLayer(photo)}
         <svg viewBox="0 0 400 230" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <g fill="none" stroke="#0A1626" stroke-opacity="0.2" stroke-width="2"><circle cx="330" cy="50" r="50"/><circle cx="330" cy="50" r="100"/><circle cx="330" cy="50" r="150"/><circle cx="330" cy="50" r="200"/></g>
         </svg>
@@ -113,11 +117,14 @@ const RANKS = ['Top match', 'Also fits', 'Wildcard'];
       </div>
       <div class="card-body card-body--dest">
         <p class="card-country">${Math.round(c.score * 100)}% match for ${esc(d.category.toLowerCase())}</p>
-        <ul class="act-list">${(acts[c.code] || []).map((a) => {
+        ${photoCredit(photo)}
+        <ul class="act-list">${(acts[c.code] || []).slice(0, 3).map((a) => {
           const link = safeUrl(a.url);
           const title = link ? `<a class="act-link" href="${esc(link)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>` : esc(a.title);
           return `<li><strong>${title}</strong><span>${esc(short(a.description))}</span></li>`;
         }).join('')}</ul>
       </div>
-    </article>`).join('')}</div>`;
+    </article>`;
+  }).join('')}</div>`;
+  guardPhotos(dest);
 })();
