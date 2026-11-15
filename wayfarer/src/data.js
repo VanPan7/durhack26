@@ -34,44 +34,43 @@ export const LINEUP = [
   { place: 'Medellín', festival: 'Feria de las Flores', when: 'August', color: '#3DD6C0' }
 ];
 
-// Each option carries the traveller type it votes for.
+// Each option is [traveller type it votes for, label, interest category it votes for].
 export const QUESTIONS = [
-  { q: "It's 9pm in a city you've never been to. Where are you heading?", options: [
-    [['walking', 'nature'], 'To bed to rest. You want to be out bright and early tomorrow.'],
-    [['night', 'culture', 'performing'], 'Out! I\'d rather head out during the night to explore.'],
-    [['crafts'], 'The night market! All the best stuff is there.'],
-    [['walking', 'night'], 'Wherever my feet take me.']
+  { q: "It's 9pm in a city you've never been to. Where are we?", options: [
+    ['night', 'Down a staircase to a club with no sign', 'Night life'],
+    ['ritual', 'Following a procession that seems to know where it is going', 'Culture'],
+    ['wander', 'Third stall deep at a night market', 'Food'],
+    ['sun', 'On a rooftop, watching the sky change colour', 'Nature']
   ]},
-  { q: 'On a rainy day, what do you find yourself doing?', options: [
-    [['crafts'], 'Collecting or scrapbooking all the things I\'ve found so far.'],
-    [['history', 'culture'], 'Find a nice museum or indoor outing for the day.'],
-    [['nature'], 'Watching the rain out the window.'],
-    [['walking'], 'Ignore it; I don\'t mind the rain all that much.']
+  { q: 'Pick the soundtrack for the whole trip.', options: [
+    ['night', 'A DJ set that runs until sunrise', 'Night life'],
+    ['ritual', 'Drums, chants and instruments older than the town', 'Performing arts'],
+    ['wander', 'Street musicians and whatever the taxi radio plays', 'Walking around/explore'],
+    ['sun', 'Samba, soca or reggaeton with the windows down', 'Performing arts']
   ]},
-  { q: "What's the first thing you look forwards to in a new city?", options: [
-    [['food'], 'Food.'],
-    [['walking', 'history', 'culture', 'nature'], 'All the new sights to see!'],
-    [['crafts'], 'Souvenirs for myself and my friends :).'],
-    [['night'], 'The new nightlife >:)'],
-    [['performing', 'culture'], 'Whatever music, drama or arts they have to show!']
+  { q: "What's the first thing in your bag?", options: [
+    ['night', 'Earplugs and a jacket that survives a long queue', 'Night life'],
+    ['ritual', 'A notebook for names, dates and recipes', 'History'],
+    ['wander', 'An empty tote for whatever I find', 'Crafts & collecting'],
+    ['sun', 'Sunscreen, obviously', 'Nature']
   ]},
   { q: 'How do you plan a day?', options: [
-    ['night', 'Sleep in, then work backwards from the headliner'],
-    ['ritual', 'Around whatever the calendar says is happening'],
-    ['wander', 'I do not. I pick a direction and walk'],
-    ['sun', 'Beach first, everything else second']
+    ['night', 'Sleep in, then work backwards from the headliner', 'Night life'],
+    ['ritual', 'Around whatever the calendar says is happening', 'Culture'],
+    ['wander', 'I do not. I pick a direction and walk', 'Walking around/explore'],
+    ['sun', 'Beach first, everything else second', 'Nature']
   ]},
   { q: 'Which souvenir wins?', options: [
-    ['night', 'A wristband I refuse to cut off'],
-    ['ritual', 'Something handmade by the person who sold it'],
-    ['wander', "A bag of spices I'll never use properly"],
-    ['sun', 'A tan line and a playlist']
+    ['night', 'A wristband I refuse to cut off', 'Night life'],
+    ['ritual', 'Something handmade by the person who sold it', 'Crafts & collecting'],
+    ['wander', "A bag of spices I'll never use properly", 'Food'],
+    ['sun', 'A tan line and a playlist', 'Performing arts']
   ]},
   { q: 'How does the trip end?', options: [
-    ['night', 'Still dancing, with a flight in four hours'],
-    ['ritual', 'Quietly, after one last ceremony'],
-    ['wander', 'With a long lunch and no plans'],
-    ['sun', 'Watching the last sunset from the water']
+    ['night', 'Still dancing, with a flight in four hours', 'Night life'],
+    ['ritual', 'Quietly, after one last ceremony', 'History'],
+    ['wander', 'With a long lunch and no plans', 'Food'],
+    ['sun', 'Watching the last sunset from the water', 'Nature']
   ]}
 ];
 
@@ -125,32 +124,18 @@ export const ARCHETYPES = {
   }
 };
 
-// Concepts in the unesco_activities table (primary_concepts) that suit each type.
-// Values must match the table exactly, including capitals.
-export const ARCHETYPE_CONCEPTS = {
-  night: [
-    'Popular music', 'Musical performances', 'Instrumental music', 'Vocal music',
-    'Percussion instruments', 'Improvisation', 'Dance', 'Choreography',
-    'Street art', 'Social gathering', 'Opera', 'Theatrical performances',
-    'Orchestras', 'Musicians', 'Performing arts', 'Throat singing', 'Trance'
-  ],
-  ritual: [
-    'Festivals', 'Festivity', 'Rituals', 'Procession', 'Pilgrimages',
-    'Seasonal ritual', 'Ritual dance', 'Ritual items', 'Masks', 'Costumes',
-    'Handicrafts', 'Craft workers', 'Weaving', 'Embroidery', 'Pottery',
-    'Wood carving', 'Calligraphy', 'Religious practice', 'Sacred sites',
-    'Veneration of the dead', 'New year', 'Lantern', 'Oral tradition'
-  ],
-  wander: [
-    'Food customs', 'Food preparation', 'Food production', 'Bread',
-    'Fermented beverages', 'Beverages', 'Winemaking', 'Brewing',
-    'Hospitality', 'Fair', 'Story telling', 'Folk art', 'Rural areas',
-    'Nomadism', 'Games', 'Toys', 'Traditional medicine', 'Social interaction'
-  ],
-  sun: [
-    'Carnival', 'Float', 'Beauty pageant', 'Dance', 'Choreography',
-    'Festivity', 'Popular music', 'Percussion instruments', 'Body painting',
-    'Sailing', 'Swimming', 'Maritime transport', 'Sport', 'Contests',
-    'Equestrian games', 'Firewalking', 'Acrobatics'
-  ]
+// The interest categories: columns of the concept_categories table in Supabase.
+// Each quiz answer also votes for one of these.
+export const CATEGORIES = [
+  'Night life', 'Performing arts', 'Culture', 'Food',
+  'Walking around/explore', 'Crafts & collecting', 'Nature', 'History'
+];
+
+// Which categories belong to each traveller type. Used to break ties
+// between types and as the fallback when a result has no category data.
+export const TYPE_CATEGORIES = {
+  night:  ['Night life', 'Performing arts'],
+  ritual: ['Culture', 'History', 'Crafts & collecting'],
+  wander: ['Food', 'Walking around/explore'],
+  sun:    ['Nature', 'Performing arts']
 };
