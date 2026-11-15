@@ -25,13 +25,18 @@ function loadLiteActivities() {
   return liteCache;
 }
 
-// Per type, per country: how many activities in that country use one of the type's concepts,
-// scaled so the type's best country is 1.  Shape: { night: { JP: 1, BR: 0.6, ... }, ... }
+// Per type, per country, a score from 0 to 1 (the type's best country is 1).
+// Half is volume (how many of the country's activities fit the type) and half is
+// specificity (what share of the country's activities fit it), so large countries
+// do not win for every type. Shape: { night: { JP: 1, BR: 0.6, ... }, ... }
 let affinityCache = null;
 export function loadAffinity() {
   if (affinityCache) return affinityCache;
   affinityCache = (async () => {
     const [rows, concepts] = await Promise.all([loadLiteActivities(), loadTypeConcepts()]);
+    const totals = {};
+    rows.forEach((a) => (a.countries || []).forEach((cc) => { totals[cc] = (totals[cc] || 0) + 1; }));
+
     const out = {};
     TYPE_ORDER.forEach((t) => {
       const wanted = new Set(concepts[t] || []);
@@ -40,21 +45,32 @@ export function loadAffinity() {
         if (!(a.primary_concepts || []).some((c) => wanted.has(c))) return;
         (a.countries || []).forEach((cc) => { counts[cc] = (counts[cc] || 0) + 1; });
       });
-      const max = Math.max(0, ...Object.values(counts));
-      out[t] = Object.fromEntries(Object.entries(counts).map(([cc, n]) => [cc, n / max]));
+      // +2 keeps a country with one lucky activity from looking 100% specific.
+      const share = (cc) => counts[cc] / (totals[cc] + 2);
+      const maxCount = Math.max(0, ...Object.values(counts));
+      const maxShare = Math.max(0, ...Object.keys(counts).map(share));
+      const raw = Object.fromEntries(Object.keys(counts).map((cc) => [cc, 0.5 * (counts[cc] / maxCount) + 0.5 * (share(cc) / maxShare)]));
+      const top = Math.max(0, ...Object.values(raw));
+      out[t] = Object.fromEntries(Object.entries(raw).map(([cc, v]) => [cc, v / top]));
     });
     return out;
   })();
   return affinityCache;
 }
 
-// Best countries for one type: [{ code, score }] strongest first.
-export async function countriesFor(type, n = 3) {
+// Countries for one type: [{ code, score }]. Picks n from the strongest pool at random,
+// favouring higher scores, so retaking the quiz gives different countries.
+export async function countriesFor(type, n = 3, poolSize = 12) {
   const affinity = await loadAffinity();
-  return Object.entries(affinity[type] || {})
+  const pool = Object.entries(affinity[type] || {})
     .sort((a, b) => b[1] - a[1])
+    .slice(0, poolSize);
+  // Weighted sampling without replacement (key = random^(1/weight)).
+  return pool
+    .map(([code, score]) => ({ code, score, key: Math.random() ** (1 / Math.max(score * score, 0.01)) }))
+    .sort((a, b) => b.key - a.key)
     .slice(0, n)
-    .map(([code, score]) => ({ code, score }));
+    .map(({ code, score }) => ({ code, score }));
 }
 
 // Full activity records for the given countries, best matches for the weighted types first.
