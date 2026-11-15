@@ -43,16 +43,17 @@ export const QUESTIONS = [
     [['walking', 'night'], 'Wherever my feet take me.']
   ]},
   { q: 'On a rainy day, what do you find yourself doing?', options: [
-    [['crafts'], 'Putting to use whatever crafts and bits I\'ve collected around the house.'],
+    [['crafts'], 'Collecting or scrapbooking all the things I\'ve found so far.'],
     [['history', 'culture'], 'Find a nice museum or indoor outing for the day.'],
-    [[], 'Street musicians and whatever the taxi radio plays'],
-    ['sun', 'Samba, soca or reggaeton with the windows down']
+    [['nature'], 'Watching the rain out the window.'],
+    [['walking'], 'Ignore it; I don\'t mind the rain all that much.']
   ]},
-  { q: "What's the first thing in your bag?", options: [
-    ['night', 'Earplugs and a jacket that survives a long queue'],
-    ['ritual', 'A notebook for names, dates and recipes'],
-    ['wander', 'An empty tote for whatever I find'],
-    ['sun', 'Sunscreen, obviously']
+  { q: "What's the first thing you look forwards to in a new city?", options: [
+    [['food'], 'Food.'],
+    [['walking', 'history', 'culture', 'nature'], 'All the new sights to see!'],
+    [['crafts'], 'Souvenirs for myself and my friends :).'],
+    [['night'], 'The new nightlife >:)'],
+    [['performing', 'culture'], 'Whatever music, drama or arts they have to show!']
   ]},
   { q: 'How do you plan a day?', options: [
     ['night', 'Sleep in, then work backwards from the headliner'],
