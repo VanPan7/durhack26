@@ -17,9 +17,9 @@ export const TYPES = [
   { key: 'culture', name: 'The People-Person', tag: 'What\'s the point of going abroad if not to engage with local culture?', traits: 'Markets / Street food / Slow days', color: '#FF6B4A' },
   { key: 'food', name: 'The Food-Lover', tag: 'No matter where you go, the best part of any holiday is hitting up the local restaurants.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' },
   { key: 'walking', name: 'The Walker', tag: 'Sometimes, the best thing on holiday is just to stretch your legs and explore.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' },
-  { key: 'crafts', name: 'The Crafter-Collector', tag: 'Souvenirs and local craft techniques are the main thing catching your eye when you travel.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' },
-  { key: 'nature', name: 'The Nature-Lover', tag: 'For you, the best way to unwind is a local nature reserve or walk on a rock beach.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' },
-  { key: 'history', name: 'The Historian', tag: 'Even on holiday, you seek out new knowledge and information.', traits: 'Carnival / Beaches / Warm nights', color: '#FF8FA3' }
+  { key: 'crafts', name: 'The Crafter-Collector', tag: 'Souvenirs and local craft techniques are the main thing catching your eye when you travel.', traits: 'Souvenirs / Craftsmanship / Markets', color: '#ADD8E6' },
+  { key: 'nature', name: 'The Nature-Lover', tag: 'For you, the best way to unwind is a local nature reserve or walk on a rock beach.', traits: 'Forests / Beaches / Fresh air ', color: '#8A9A5B' },
+  { key: 'history', name: 'The Historian', tag: 'Even on holiday, you seek out new knowledge and information.', traits: 'Museums / Local history / Architecture', color: '#C8A2C8' }
 ];
 
 export const LINEUP = [
