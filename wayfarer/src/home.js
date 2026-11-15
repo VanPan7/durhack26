@@ -1,5 +1,5 @@
 import './styles.css';
-import { TYPES, LINEUP } from './data.js';
+import { TYPES } from './data.js';
 import { esc } from './lib/escape.js';
 
 const typesGrid = document.getElementById('types-grid');
@@ -18,7 +18,7 @@ typesGrid.innerHTML = TYPES.map((t) => `
   </article>
 `).join('');
 
-const lineupList = document.getElementById('lineup-list');
+/*const lineupList = document.getElementById('lineup-list');
 lineupList.innerHTML = LINEUP.map((row) => `
   <li class="lineup-row" style="--accent:${esc(row.color)}">
     <span class="lineup-dot" aria-hidden="true"></span>
@@ -26,4 +26,4 @@ lineupList.innerHTML = LINEUP.map((row) => `
     <span class="lineup-fest">${esc(row.festival)}</span>
     <span class="lineup-when">${esc(row.when)}</span>
   </li>
-`).join('');
+`).join('');*/

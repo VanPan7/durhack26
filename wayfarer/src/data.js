@@ -131,7 +131,7 @@ export const ARCHETYPES = {
     traits: 'Local dishes / Markets / Long lunches'
   },
   walking: {
-    name: 'The Walker', color: '#7BC96F', category: 'Walking around/explore',
+    name: 'The Walker', color: '#FFDBBB', category: 'Walking around/explore',
     tag: 'Sometimes, the best thing you can do on holiday is stretch your legs and explore.',
     blurb: 'You leave room in the day for whatever turns up. Side streets, bridges and wrong turns are how you find the places the guidebooks missed.',
     traits: 'Side streets / Wandering / Slow days'
