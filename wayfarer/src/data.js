@@ -39,39 +39,62 @@ export const QUESTIONS = [
   { q: "It's 9pm in a city you've never been to. Where are you heading?", options: [
     [['walking', 'nature'], 'To bed to rest. You want to be out bright and early tomorrow.'],
     [['night', 'culture', 'performing'], 'Out! I\'d rather head out during the night to explore.'],
-    [['crafts'], 'The night market! All the best stuff is there.'],
+    [['crafts', 'culture'], 'The night market! All the best stuff is there.'],
     [['walking', 'night'], 'Wherever my feet take me.']
   ]},
   { q: 'On a rainy day, what do you find yourself doing?', options: [
     [['crafts'], 'Collecting or scrapbooking all the things I\'ve found so far.'],
     [['history', 'culture'], 'Find a nice museum or indoor outing for the day.'],
-    [['nature'], 'Watching the rain out the window.'],
+    [['nature', 'night'], 'Watching the rain out the window.'],
     [['walking'], 'Ignore it; I don\'t mind the rain all that much.']
   ]},
   { q: "What's the first thing you look forwards to in a new city?", options: [
     [['food'], 'Food.'],
     [['walking', 'history', 'culture', 'nature'], 'All the new sights to see!'],
     [['crafts'], 'Souvenirs for myself and my friends :).'],
-    [['night'], 'The new nightlife >:)'],
-    [['performing', 'culture'], 'Whatever music, drama or arts they have to show!']
+    [['culture', 'performing'], 'The new music, arts, drama they have to show!']
   ]},
   { q: 'How do you plan a day?', options: [
-    ['night', 'Sleep in, then work backwards from the headliner'],
-    ['ritual', 'Around whatever the calendar says is happening'],
-    ['wander', 'I do not. I pick a direction and walk'],
-    ['sun', 'Beach first, everything else second']
+    [['night', 'performing'], 'Sleep in, then work backwards from a main idea'],
+    [['culture', 'history'], 'Around whatever the calendar says is happening'],
+    ['walking', 'I do not. I pick a direction and walk'],
+    [['nature', 'walking'], 'Beach first, everything else second']
   ]},
   { q: 'Which souvenir wins?', options: [
-    ['night', 'A wristband I refuse to cut off'],
-    ['ritual', 'Something handmade by the person who sold it'],
-    ['wander', "A bag of spices I'll never use properly"],
-    ['sun', 'A tan line and a playlist']
+    [['night', 'performing'], 'A wristband I refuse to cut off'],
+    [['crafts', 'culture', 'history'], 'Something handmade by the person who sold it'],
+    [['walking', 'food'], "A bag of spices I'll never use properly"],
+    [['nature', 'walking'], 'A tan line and a playlist']
   ]},
   { q: 'How does the trip end?', options: [
-    ['night', 'Still dancing, with a flight in four hours'],
-    ['ritual', 'Quietly, after one last ceremony'],
-    ['wander', 'With a long lunch and no plans'],
-    ['sun', 'Watching the last sunset from the water']
+    [['night', 'performing'], 'Still dancing, with a flight in four hours'],
+    [['culture', 'history'], 'Quietly, after one last ceremony'],
+    [['walking', 'food'], 'With a long lunch and no plans'],
+    ['nature', 'Watching the last sunset from the water']
+  ]},
+  { q: 'You leave the holiday with an extra suitcase full of what?', options: [
+    [['night', 'performing'], 'Clothes, accessories, and lots of hats!'],
+    [['night', 'food'], 'Duty free alcohol and photobooth pictures.'],
+    [['culture', 'food'], 'Lots of local delicacies and artisanal crafts.'],
+    [['nature', 'walking'], 'Books on local wildlife and local viewpoints and scenery']
+  ]},
+  { q: 'Your instagram holiday dump is full of what?', options: [
+    [['nature', 'walking', 'history'], 'Panoramic shots of the scenery.'],
+    ['food', 'Loads of food pics.'],
+    [['culture', 'night', 'performing'], 'Selfies, photobooth shots, club photos!'],
+    [['crafts', 'culture'], 'Stuff you\'ve done with locals']
+  ]},
+  { q: 'Your perfect excursion consists of?', options: [
+    [['history', 'food'], 'Guided tour of ancient ruins, followed by lunch overlooking the scenery.'],
+    [['crafts', 'nature'], 'Swimming with dolphins and floating in crystal blue waters.'],
+    [['walking', 'performing', 'culture'], 'Go and explore the town and looking at all the street performances.'],
+    ['night', 'Pub crawl around the town and meet people.']
+  ]},
+  { q: 'What do you find most relaxing?', options: [
+    [['', ''], 'Spa day.'],
+    [['', ''], 'Swimming with dolphins and floating in crystal blue waters.'],
+    [['', ''], 'Go and explore the town and looking at all the street performances.'],
+    [['', ''], 'Books on local wildlife and local viewpoints and scenery']
   ]}
 ];
 
@@ -80,8 +103,8 @@ export const TYPE_ORDER = ['night', 'ritual', 'wander', 'sun'];
 
 export const ARCHETYPES = {
   night: {
-    name: 'The Night Owl', color: '#3DD6C0',
-    tag: 'Your best stories start after midnight.',
+    name: 'The Nocturnal Traveller', color: '#3DD6C0',
+    tag: 'Even abroad, you wouldn\'t dream of getting up before 5pm.',
     blurb: 'You plan trips around a line-up, not a landmark. Great sound, a good crowd and a late finish matter more than a sunrise view.',
     traits: 'Live music / Clubs / Late nights', sound: 'Techno and folk',
     places: [
@@ -90,9 +113,9 @@ export const ARCHETYPES = {
       { rank: 'Wildcard', name: 'Medellín', country: 'Colombia', blurb: 'Salsa bars and reggaeton clubs in a warm, hillside city that stays up late.', festival: 'Feria de las Flores', when: 'August', sound: 'Reggaeton, salsa' }
     ]
   },
-  ritual: {
-    name: 'The Ritualist', color: '#FFB547',
-    tag: 'You travel for the moments a whole town stops for.',
+  performing: {
+    name: 'The Patron', color: '#FFB547',
+    tag: 'Theater, dance, music; that\'s what travelling is all about.',
     blurb: 'Processions, lanterns, altars and old songs. You time your trip to the calendar and come home with names, recipes and stories.',
     traits: 'Festivals / Craft / Heritage', sound: 'Drums and bells',
     places: [
@@ -101,22 +124,33 @@ export const ARCHETYPES = {
       { rank: 'Wildcard', name: 'Chiang Mai', country: 'Thailand', blurb: 'Paper lanterns rise over the old city and floating baskets drift down the river.', festival: 'Yi Peng and Loy Krathong', when: 'November', sound: 'Monk chants, festival drums' }
     ]
   },
-  wander: {
-    name: 'The Wanderer', color: '#FF6B4A',
-    tag: 'You would rather get lost with a snack than follow a map.',
+  walking: {
+    name: 'The Walker', color: '#FF6B4A',
+    tag: 'Sometimes, the best thing you can do on holiday is to strecth your legs and explore.',
     blurb: 'Markets, side streets and long lunches. You leave room in the bag, and in the day, for whatever turns up.',
-    traits: 'Markets / Street food / Slow days', sound: 'Street music',
+    traits: 'Rural areas / Navigation / Slow days', sound: 'Street music',
     places: [
       { rank: 'Top match', name: 'Lisbon', country: 'Portugal', blurb: 'Tiled hills, tiny tascas and fado drifting out of Alfama doorways at night.', festival: 'Festas de Lisboa', when: 'June', sound: 'Fado, tram bells' },
       { rank: 'Also fits', name: 'Marrakech', country: 'Morocco', blurb: 'A square that turns into a night market, with storytellers and drummers in the smoke.', festival: 'Gnawa Festival, Essaouira', when: 'June', sound: 'Gnawa drums, storytellers' },
       { rank: 'Wildcard', name: 'Hoi An', country: 'Vietnam', blurb: 'Lantern-lined streets, tailors on every corner and a riverside that glows each full moon.', festival: 'Full Moon Lantern Festival', when: 'Monthly', sound: 'Riverside music, bicycle bells' }
     ]
   },
-  sun: {
-    name: 'The Sun Chaser', color: '#FF8FA3',
-    tag: 'Rhythm, heat and a dance floor with no walls.',
+  culture: {
+    name: 'The People-Person', color: '#FF8FA3',
+    tag: 'What\'s the point of going abroad if not to engage with local culture?',
     blurb: 'Warm nights, big drums and a beach never far away. You travel toward the loudest, brightest week on the calendar.',
-    traits: 'Carnival / Beaches / Warm nights', sound: 'Samba and soca',
+    traits: 'Carnival / Socio-cultural practices / Warm nights', sound: 'Samba and soca',
+    places: [
+      { rank: 'Top match', name: 'Rio de Janeiro', country: 'Brazil', blurb: 'Samba schools, neighbourhood blocos and beach days between parades.', festival: 'Carnival', when: 'February or March', sound: 'Samba, bloco drums' },
+      { rank: 'Also fits', name: 'Port of Spain', country: 'Trinidad and Tobago', blurb: 'Costumes, steel pan and soca trucks fill the streets for the biggest days of the year.', festival: 'Trinidad Carnival', when: 'February or March', sound: 'Soca, steel pan' },
+      { rank: 'Wildcard', name: 'Cartagena', country: 'Colombia', blurb: 'Walled-city evenings with cumbia in the plazas and a Caribbean coast on the doorstep.', festival: 'Festival Internacional de Música', when: 'January', sound: 'Cumbia, champeta' }
+    ]
+  },
+  food: {
+    name: 'The Food-Lover', color: '#FF8FA3',
+    tag: 'No matter where you go, the best part of a holiday is hitting up all the local restaurants!',
+    blurb: 'Warm nights, big drums and a beach never far away. You travel toward the loudest, brightest week on the calendar.',
+    traits: 'Food customs / Food preparation / Oven', sound: 'Soul and jazz',
     places: [
       { rank: 'Top match', name: 'Rio de Janeiro', country: 'Brazil', blurb: 'Samba schools, neighbourhood blocos and beach days between parades.', festival: 'Carnival', when: 'February or March', sound: 'Samba, bloco drums' },
       { rank: 'Also fits', name: 'Port of Spain', country: 'Trinidad and Tobago', blurb: 'Costumes, steel pan and soca trucks fill the streets for the biggest days of the year.', festival: 'Trinidad Carnival', when: 'February or March', sound: 'Soca, steel pan' },
