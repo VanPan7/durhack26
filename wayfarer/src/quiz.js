@@ -1,7 +1,6 @@
 import './styles.css';
-import { QUESTIONS } from './data.js';
+import { QUESTIONS, TYPE_ORDER } from './data.js';
 import { esc } from './lib/escape.js';
-import { tally, winningType, topCategories } from './lib/score.js';
 import { addMember, normaliseCode, getName } from './lib/groups.js';
 
 const root = document.getElementById('quiz-root');
@@ -11,14 +10,24 @@ const answers = [];
 // quiz.html?group=ABC123 saves the result to that group instead of showing a solo result.
 const groupCode = normaliseCode(new URLSearchParams(window.location.search).get('group'));
 
-function pick(tag, cat) {
-  answers.push([tag, cat]);
+function tally() {
+  const counts = Object.fromEntries(TYPE_ORDER.map((k) => [k, 0]));
+  answers.forEach((a) => { counts[a] += 1; });
+  return counts;
+}
+
+function winningType() {
+  const counts = tally();
+  let best = TYPE_ORDER[0];
+  TYPE_ORDER.forEach((k) => { if (counts[k] > counts[best]) best = k; });
+  return best;
+}
+
+function pick(tag) {
+  answers.push(tag);
   if (answers.length >= QUESTIONS.length) {
     if (groupCode) return finishForGroup();
-    const result = tally(answers);
-    const params = new URLSearchParams({ type: winningType(result) });
-    topCategories(result).forEach((c) => params.append('cat', c.name));
-    window.location.href = `/results.html?${params}`;
+    window.location.href = `/results.html?type=${winningType()}`;
     return;
   }
   render();
@@ -27,7 +36,7 @@ function pick(tag, cat) {
 async function finishForGroup() {
   root.innerHTML = '<p class="lede" role="status">Saving your answers…</p>';
   const name = getName() || 'Traveller';
-  const { error } = await addMember(groupCode, name, tally(answers).types);
+  const { error } = await addMember(groupCode, name, tally());
   if (error) {
     root.innerHTML = `<div class="auth-card"><p class="auth-msg is-error" role="alert">${esc(error.message)}</p>
       <a class="btn btn-primary" href="/group.html?code=${groupCode}">Back to the group</a></div>`;
@@ -50,8 +59,8 @@ function render() {
     return `<div class="${cls}"></div>`;
   }).join('');
 
-  const options = q.options.map(([tag, label, cat], i) => `
-    <button type="button" class="opt" data-pick="${esc(tag)}" data-cat="${esc(cat)}">
+  const options = q.options.map(([tag, label], i) => `
+    <button type="button" class="opt" data-pick="${esc(tag)}">
       <span class="opt-badge">${LETTERS[i]}</span>
       <span class="opt-label">${esc(label)}</span>
     </button>
@@ -73,7 +82,7 @@ function render() {
   `;
 
   root.querySelectorAll('[data-pick]').forEach((btn) => {
-    btn.addEventListener('click', () => pick(btn.dataset.pick, btn.dataset.cat));
+    btn.addEventListener('click', () => pick(btn.dataset.pick));
   });
   const back = document.getElementById('back');
   if (back) back.addEventListener('click', goBack);
