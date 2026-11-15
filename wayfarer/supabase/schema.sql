@@ -22,3 +22,7 @@ create policy "read groups" on groups for select using (true);
 create policy "create groups" on groups for insert with check (true);
 create policy "read members" on group_members for select using (true);
 create policy "join group" on group_members for insert with check (true);
+
+-- Let the site read the concept lists and activities.
+alter table concept_categories enable row level security;
+create policy "public read" on concept_categories for select using (true);
